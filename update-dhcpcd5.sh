@@ -29,13 +29,12 @@ echo "yes" | uupdate --verbose ../$UP_SRC
 
 # Build the resulting new package
 cd ../$NEW_SRC
-# need some hack so dpkg-buildpackage succeeds
-#export DEB_BUILD_OPTIONS=nostrip
-#sudo rm /usr/bin/dh_dwz
-#sudo ln -s /bin/true /usr/bin/dh_dwz
+# need some hacks so dpkg-buildpackage succeeds
 ( cd  /usr/xcc/armv7-unknown-linux-gnueabi/bin;
   for f in objcopy objdump strip; do sudo ln -s armv7-unknown-linux-gnueabi-$f arm-linux-gnueabihf-$f; done;
 )
+# need to disable tests -- the github runner can't run the armhf executables
+export DEB_BUILD_OPTIONS=nocheck
 #
 # echo dpkg-buildpackage -us -uc -nc -d --target-arch armhf -a armhf --target-type armv7-unknown-linux-gnueabi
 # bash -i
