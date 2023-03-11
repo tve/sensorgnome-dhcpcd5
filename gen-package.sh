@@ -10,6 +10,8 @@ docker run $IMG >sensorgnome-dockcross
 chmod +x sensorgnome-dockcross
 
 echo "Cross-compiling and installing"
+rm -rf packages
+mkdir -p packages
 ./sensorgnome-dockcross -i $IMG ./update-dhcpcd5.sh $DESTDIR
 #DESTDIR=$DESTDIR STRIP=armv7-unknown-linux-gnueabi-strip
 
